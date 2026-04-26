@@ -1,0 +1,528 @@
+/* ==========================================
+   css/style.css
+   PROFESSIONAL FINTECH VERSION
+   FinAI Advisor
+========================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap');
+
+:root{
+
+  /* Brand */
+  --yellow:#FCE849;
+
+  /* Background */
+  --black:#0F1117;
+  --navy:#171A22;
+  --surface:#1E222D;
+  --surface-2:#252A36;
+
+  /* Text */
+  --white:#FFFFFF;
+  --text:#E8ECF1;
+  --gray:#9CA3AF;
+  --muted:#6B7280;
+
+  /* Effects */
+  --border:rgba(255,255,255,0.06);
+  --glass:rgba(255,255,255,0.04);
+
+  --success:#22C55E;
+  --danger:#EF4444;
+
+  --shadow:0 12px 30px rgba(0,0,0,0.35);
+  --yellow-glow:0 0 18px rgba(252,232,73,0.18);
+
+  --radius:20px;
+  --transition:0.3s ease;
+}
+
+/* =======================
+   Reset
+======================= */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:'Manrope',sans-serif;
+  background:
+  radial-gradient(circle at top right,#202533 0%,transparent 28%),
+  radial-gradient(circle at bottom left,#1B1F2A 0%,transparent 30%),
+  linear-gradient(135deg,var(--black),var(--navy));
+
+  color:var(--text);
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+img{
+  max-width:100%;
+  display:block;
+}
+
+a{
+  text-decoration:none;
+  color:inherit;
+}
+
+button,input,select,textarea{
+  font-family:inherit;
+}
+
+/* =======================
+   Typography
+======================= */
+h1,h2,h3,h4,h5{
+  color:var(--white);
+  line-height:1.15;
+  font-weight:800;
+}
+
+p{
+  color:var(--gray);
+  line-height:1.7;
+}
+
+.muted{
+  color:var(--muted);
+}
+
+.positive{
+  color:var(--success);
+}
+
+.negative{
+  color:var(--danger);
+}
+
+/* =======================
+   Layout
+======================= */
+.container{
+  width:min(1200px,92%);
+  margin:auto;
+}
+
+.section{
+  padding:70px 0;
+}
+
+.section-title{
+  text-align:center;
+  margin-bottom:36px;
+}
+
+.section-title.left{
+  text-align:left;
+}
+
+.section-title h2{
+  font-size:2rem;
+  margin-top:10px;
+}
+
+.grid-3{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:24px;
+}
+
+/* =======================
+   Badge
+======================= */
+.badge{
+  display:inline-block;
+  padding:8px 14px;
+  border-radius:999px;
+  font-size:0.85rem;
+  font-weight:700;
+  color:var(--yellow);
+  background:rgba(252,232,73,0.08);
+  border:1px solid rgba(252,232,73,0.14);
+}
+
+/* =======================
+   Navbar
+======================= */
+.navbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:20px 5%;
+  position:sticky;
+  top:0;
+  z-index:999;
+
+  background:rgba(15,17,23,0.75);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(255,255,255,0.04);
+}
+
+.logo{
+  font-size:1.45rem;
+  font-weight:800;
+  color:var(--yellow);
+  letter-spacing:0.5px;
+}
+
+.nav-menu{
+  display:flex;
+  gap:22px;
+  align-items:center;
+}
+
+.nav-menu a{
+  color:#d9dde5;
+  font-weight:600;
+  transition:var(--transition);
+}
+
+.nav-menu a:hover{
+  color:var(--yellow);
+}
+
+.nav-actions{
+  display:flex;
+  gap:12px;
+  align-items:center;
+}
+
+.menu-toggle{
+  display:none;
+  width:42px;
+  height:42px;
+  border:none;
+  border-radius:12px;
+  cursor:pointer;
+  background:var(--surface);
+  color:#fff;
+}
+
+/* =======================
+   Buttons
+======================= */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:13px 24px;
+  border:none;
+  border-radius:999px;
+  cursor:pointer;
+
+  background:var(--yellow);
+  color:#111;
+  font-weight:800;
+
+  transition:var(--transition);
+}
+
+.btn:hover{
+  transform:translateY(-2px);
+  box-shadow:var(--yellow-glow);
+}
+
+.btn-outline{
+  background:transparent;
+  color:#fff;
+  border:1px solid var(--border);
+}
+
+.small-btn{
+  padding:10px 16px;
+  font-size:0.9rem;
+}
+
+.full-btn{
+  width:100%;
+}
+
+/* =======================
+   Cards
+======================= */
+.card,
+.glass{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+}
+
+.card{
+  padding:24px;
+}
+
+.glow-card{
+  box-shadow:
+  0 12px 30px rgba(0,0,0,0.35),
+  0 0 18px rgba(252,232,73,0.10);
+}
+
+.icon-circle{
+  width:56px;
+  height:56px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:rgba(252,232,73,0.08);
+  margin-bottom:16px;
+  font-size:1.3rem;
+}
+
+/* =======================
+   Hero
+======================= */
+.hero{
+  width:min(1300px,92%);
+  margin:auto;
+  min-height:92vh;
+
+  display:grid;
+  grid-template-columns:1.1fr 0.9fr;
+  gap:40px;
+  align-items:center;
+
+  padding:40px 0 60px;
+}
+
+.hero h1{
+  font-size:4rem;
+  margin:18px 0;
+}
+
+.hero h1 span{
+  color:var(--yellow);
+}
+
+.hero-text{
+  max-width:620px;
+  margin-bottom:28px;
+}
+
+.hero-buttons{
+  display:flex;
+  gap:14px;
+  flex-wrap:wrap;
+  margin-bottom:32px;
+}
+
+.stats-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+}
+
+.stat-card{
+  padding:22px;
+  text-align:center;
+}
+
+.stat-card h3{
+  font-size:2rem;
+  color:var(--yellow);
+}
+
+.hero-widget{
+  position:relative;
+}
+
+.widget-card{
+  padding:24px;
+  margin-bottom:18px;
+}
+
+.widget-card.small{
+  padding:18px;
+}
+
+/* =======================
+   Page Hero
+======================= */
+.page-hero{
+  text-align:center;
+  padding:70px 5% 24px;
+}
+
+.page-hero h1{
+  font-size:3rem;
+  margin:18px 0;
+}
+
+/* =======================
+   Chat
+======================= */
+.chat-wrapper{
+  width:min(1300px,92%);
+  margin:30px auto 60px;
+
+  display:grid;
+  grid-template-columns:360px 1fr;
+  gap:24px;
+}
+
+.chat-sidebar{
+  padding:28px;
+}
+
+.suggested-box{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:20px;
+}
+
+.chip{
+  padding:10px 14px;
+  border:none;
+  border-radius:999px;
+  background:var(--surface-2);
+  color:#fff;
+  cursor:pointer;
+}
+
+.chat-area{
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+}
+
+.chat-box{
+  min-height:70vh;
+  max-height:70vh;
+  overflow-y:auto;
+}
+
+.message{
+  display:flex;
+  gap:12px;
+  margin-bottom:16px;
+}
+
+.user-msg{
+  justify-content:flex-end;
+}
+
+.avatar{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:var(--surface-2);
+}
+
+.bubble{
+  max-width:72%;
+  padding:14px 18px;
+  border-radius:18px;
+  background:var(--surface-2);
+}
+
+.user-msg .bubble{
+  background:var(--yellow);
+  color:#111;
+  font-weight:700;
+}
+
+.chat-input-wrap{
+  padding:14px;
+  display:flex;
+  gap:12px;
+}
+
+.chat-input-wrap input{
+  flex:1;
+  border:none;
+  outline:none;
+  background:transparent;
+  color:#fff;
+}
+
+/* =======================
+   Footer
+======================= */
+.footer{
+  margin-top:60px;
+  padding:40px 5%;
+  border-top:1px solid rgba(255,255,255,0.05);
+  text-align:center;
+}
+
+.footer div{
+  display:flex;
+  justify-content:center;
+  gap:18px;
+  flex-wrap:wrap;
+  margin:12px 0;
+}
+
+.footer a:hover{
+  color:var(--yellow);
+}
+
+/* =======================
+   CTA
+======================= */
+.cta-section{
+  padding:60px 0;
+}
+
+.cta-box{
+  width:min(900px,92%);
+  margin:auto;
+  text-align:center;
+  padding:42px;
+}
+
+/* =======================
+   Animations
+======================= */
+.fade-up{
+  opacity:1;
+  transform:translateY(0);
+  transition:0.7s ease;
+}
+
+.fade-up.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+.float-card{
+  animation:floatY 4s ease-in-out infinite;
+}
+
+@keyframes floatY{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-12px)}
+}
+
+/* =======================
+   Scrollbar
+======================= */
+::-webkit-scrollbar{
+  width:8px;
+}
+
+::-webkit-scrollbar-thumb{
+  background:rgba(255,255,255,0.14);
+  border-radius:999px;
+}
+/* Add this in style.css */
+
+.news-list{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;   /* space between news cards */
+}
+
+.news-card{
+  padding: 24px;
+}

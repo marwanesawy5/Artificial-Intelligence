@@ -1,0 +1,193 @@
+/* ==========================================
+   css/forms.css
+   Planner / Inputs Page Styles
+========================================== */
+
+/* ========================
+   Planner Layout
+======================== */
+.planner-layout{
+  display:grid;
+  grid-template-columns:1.15fr 0.85fr;
+  gap:24px;
+  align-items:start;
+}
+
+/* ========================
+   Cards
+======================== */
+.planner-form,
+.planner-results{
+  padding:28px;
+}
+
+.planner-form h2,
+.planner-results h2{
+  margin-bottom:22px;
+  font-size:1.5rem;
+}
+
+/* ========================
+   Form Grid
+======================== */
+.form-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:18px;
+}
+
+.form-group{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.form-group label{
+  font-size:0.95rem;
+  font-weight:700;
+  color:#d8d8d8;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+  width:100%;
+  padding:15px 16px;
+  border:none;
+  outline:none;
+  border-radius:16px;
+  background:rgba(255,255,255,0.06);
+  color:#fff;
+  border:1px solid rgba(255,255,255,0.08);
+  transition:0.3s ease;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder{
+  color:#8d8d8d;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{
+  border-color:rgba(252,232,73,0.6);
+  box-shadow:0 0 0 4px rgba(252,232,73,0.08);
+}
+
+.form-group select{
+  appearance:none;
+  cursor:pointer;
+}
+
+.full-btn{
+  grid-column:1 / -1;
+  margin-top:8px;
+}
+
+/* ========================
+   Results Box
+======================== */
+#resultsBox{
+  display:grid;
+  gap:16px;
+}
+
+.result-item{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  padding:16px 18px;
+  border-radius:16px;
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.05);
+}
+
+.result-item span{
+  color:#cfcfcf;
+  font-size:0.95rem;
+}
+
+.result-item strong{
+  font-size:1.15rem;
+  color:var(--yellow);
+}
+
+.result-tip{
+  margin-top:8px;
+  padding:18px;
+  border-radius:16px;
+  background:rgba(252,232,73,0.08);
+  border:1px solid rgba(252,232,73,0.18);
+  color:#fff7bf;
+  line-height:1.6;
+}
+
+/* ========================
+   Bonus Cards
+======================== */
+.section .card h3{
+  margin-bottom:10px;
+}
+
+/* ========================
+   Range Sliders (Future Use)
+======================== */
+input[type="range"]{
+  width:100%;
+  accent-color:var(--yellow);
+}
+
+/* ========================
+   Error / Success States
+======================== */
+.input-error{
+  border-color:#ff6a6a !important;
+}
+
+.input-success{
+  border-color:#57ff8f !important;
+}
+
+/* ========================
+   Responsive Tablet
+======================== */
+@media (max-width: 992px){
+
+  .planner-layout{
+    grid-template-columns:1fr;
+  }
+
+  .planner-results{
+    order:-1;
+  }
+}
+
+/* ========================
+   Responsive Mobile
+======================== */
+@media (max-width: 768px){
+
+  .planner-form,
+  .planner-results{
+    padding:22px;
+  }
+
+  .form-grid{
+    grid-template-columns:1fr;
+    gap:16px;
+  }
+
+  .full-btn{
+    grid-column:auto;
+  }
+
+  .result-item{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .result-item strong{
+    font-size:1.05rem;
+  }
+}

@@ -1,0 +1,170 @@
+<!-- nearby.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mawzoon Nearby Services</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- =========================
+       Navbar
+  ========================== -->
+  <header class="navbar">
+    <div class="logo">Mawzoon</div>
+
+    <nav class="nav-menu">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="chatbot.html">AI Chat</a>
+      <a href="inputs.html">Planner</a>
+      <a href="markets.html">Markets</a>
+    </nav>
+  </header>
+
+  <!-- =========================
+       Hero
+  ========================== -->
+  <section class="page-hero">
+    <div class="fade-up">
+      <p class="badge">Nearby Financial Services</p>
+      <h1>Find Trusted Services Near You</h1>
+      <p class="hero-text">
+        Quickly locate banks, brokers, ATMs, gold shops, and investment offices.
+      </p>
+    </div>
+  </section>
+
+  <!-- =========================
+       Cards Section
+  ========================== -->
+  <main class="container">
+
+    <section class="grid-3">
+
+      <!-- Gold Shops -->
+      <article class="card fade-up">
+        <div class="icon-circle">🥇</div>
+        <h3>Gold Shops</h3>
+        <p>
+          Search nearby gold stores, jewelers, and bullion dealers.
+        </p>
+
+        <button
+          class="btn map-btn"
+          data-query="gold shop near me"
+        >
+          Open in Google Maps
+        </button>
+      </article>
+
+      <!-- Brokers -->
+      <article class="card fade-up">
+        <div class="icon-circle">📈</div>
+        <h3>Stock Brokers</h3>
+        <p>
+          Discover brokerage firms and investment advisors nearby.
+        </p>
+
+        <button
+          class="btn map-btn"
+          data-query="stock broker near me"
+        >
+          Open in Google Maps
+        </button>
+      </article>
+
+      <!-- Banks -->
+      <article class="card fade-up">
+        <div class="icon-circle">🏦</div>
+        <h3>Bank Branches</h3>
+        <p>
+          Find the nearest bank branches, services, and ATMs.
+        </p>
+
+        <button
+          class="btn map-btn"
+          data-query="bank near me"
+        >
+          Open in Google Maps
+        </button>
+      </article>
+
+      <!-- Currency Exchange -->
+      <article class="card fade-up">
+        <div class="icon-circle">💱</div>
+        <h3>Currency Exchange</h3>
+        <p>
+          Search exchange offices with live currency services.
+        </p>
+
+        <button
+          class="btn map-btn"
+          data-query="currency exchange near me"
+        >
+          Open in Google Maps
+        </button>
+      </article>
+
+      <!-- Insurance -->
+      <article class="card fade-up">
+        <div class="icon-circle">🛡️</div>
+        <h3>Insurance Offices</h3>
+        <p>
+          Locate life, health, and property insurance providers.
+        </p>
+
+        <button
+          class="btn map-btn"
+          data-query="insurance office near me"
+        >
+          Open in Google Maps
+        </button>
+      </article>
+
+      <!-- Real Estate -->
+      <article class="card fade-up">
+        <div class="icon-circle">🏠</div>
+        <h3>Real Estate Offices</h3>
+        <p>
+          Find agencies for investment properties and homes.
+        </p>
+
+        <button
+          class="btn map-btn"
+          data-query="real estate office near me"
+        >
+          Open in Google Maps
+        </button>
+      </article>
+
+    </section>
+
+    <!-- Premium Tip -->
+    <section class="cta-section fade-up">
+      <div class="glass cta-box">
+        <h2>Smart Tip</h2>
+        <p>
+          Compare at least 3 providers before choosing any financial service.
+        </p>
+        <a href="chatbot.html" class="btn">Ask AI Advisor</a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- JS -->
+  <script src="js/main.js"></script>
+  <script src="js/maps.js"></script>
+
+</body>
+</html>
