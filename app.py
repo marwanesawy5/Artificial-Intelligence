@@ -6,9 +6,9 @@ from auth.models import db, User, Watchlist
 from llm import ask_llm
 import webbrowser
 import threading
-
+from planner import planner_bp
 app = Flask(__name__)
-
+app.register_blueprint(planner_bp)
 # -------------------
 # CONFIG
 # -------------------

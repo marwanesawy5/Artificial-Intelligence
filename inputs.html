@@ -99,9 +99,9 @@
             </select>
           </div>
 
-          <button type="submit" class="btn full-btn">
-            Generate Plan
-          </button>
+             <button type="button" class="btn full-btn">
+  Generate Plan
+</button>
 
         </form>
       </section>
@@ -168,68 +168,67 @@
   <!-- JS -->
   <script src="js/main.js"></script>
 
-  <script>
-    const form = document.getElementById("financeForm");
-    const resultsBox = document.getElementById("resultsBox");
+<script>
+const resultsBox = document.getElementById("resultsBox");
 
-    form.addEventListener("submit", function(e) {
-      e.preventDefault();
+// Handle button click directly (no form submit)
+document.querySelector(".full-btn").addEventListener("click", async function(e) {
+  e.preventDefault();
 
-      const salary = +document.getElementById("salary").value;
-      const expenses = +document.getElementById("expenses").value;
-      const savings = +document.getElementById("savings").value;
-      const debt = +document.getElementById("debt").value;
-      const risk = document.getElementById("risk").value;
-      const goal = document.getElementById("goal").value;
+  // Get values
+  const salary = +document.getElementById("salary").value;
+  const expenses = +document.getElementById("expenses").value;
+  const savings = +document.getElementById("savings").value;
+  const debt = +document.getElementById("debt").value;
+  const risk = document.getElementById("risk").value;
+  const goal = document.getElementById("goal").value;
 
-      const surplus = salary - expenses;
-      const rate = Math.max(0, ((surplus / salary) * 100)).toFixed(1);
+  // Optional basic validation
+  if (!salary || !expenses) {
+    alert("Please enter salary and expenses");
+    return;
+  }
 
-      let score = 50;
-
-      if (surplus > 500) score += 15;
-      if (savings > 5000) score += 15;
-      if (debt < 2000) score += 10;
-      if (risk === "Medium") score += 5;
-      if (goal === "Retirement") score += 5;
-
-      if (score > 100) score = 100;
-
-      let tip = "Stay consistent and review monthly.";
-
-      if (surplus < 0) {
-        tip = "Expenses exceed income. Cut spending immediately.";
-      } else if (debt > savings) {
-        tip = "Debt is high. Prioritize repayments.";
-      } else if (score > 80) {
-        tip = "Excellent position. Begin advanced investing.";
-      }
-
-      resultsBox.innerHTML = `
-        <div class="result-item">
-          <span>Monthly Surplus</span>
-          <strong>$${surplus}</strong>
-        </div>
-
-        <div class="result-item">
-          <span>Savings Rate</span>
-          <strong>${rate}%</strong>
-        </div>
-
-        <div class="result-item">
-          <span>AI Score</span>
-          <strong>${score}/100</strong>
-        </div>
-
-        <div class="result-item">
-          <span>Goal</span>
-          <strong>${goal}</strong>
-        </div>
-
-        <div class="result-tip">${tip}</div>
-      `;
+  try {
+    const res = await fetch("/plan", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        salary, expenses, savings, debt, risk, goal
+      })
     });
-  </script>
+
+    const data = await res.json();
+
+    // Update UI
+    resultsBox.innerHTML = `
+      <div class="result-item">
+        <span>Monthly Surplus</span>
+        <strong>$${data.surplus}</strong>
+      </div>
+
+      <div class="result-item">
+        <span>Savings Rate</span>
+        <strong>${data.savings_rate}%</strong>
+      </div>
+
+      <div class="result-item">
+        <span>AI Score</span>
+        <strong>${data.score}/100</strong>
+      </div>
+
+      <div class="result-item">
+        <span>Advice</span>
+        <div>${data.advice.map(a => `<p>• ${a}</p>`).join("")}</div>
+      </div>
+    `;
+
+  } catch (err) {
+    console.error("Error:", err);
+    alert("Something went wrong. Check console.");
+  }
+});
+</script>
 
 </body>
 </html>
