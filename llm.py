@@ -1,6 +1,6 @@
 from huggingface_hub import InferenceClient
 client = InferenceClient(
-    api_key="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"
+    api_key=""
 )
 
 MODEL = "meta-llama/Llama-3.1-8B-Instruct"
