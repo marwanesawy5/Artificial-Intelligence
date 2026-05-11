@@ -19,23 +19,51 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
 
         // --- 3. PREPARE HISTORY DATA FOR CHARTS ---
+        // --- 3. PREPARE HISTORY DATA FOR CHARTS ---
         let chartLabels = ["No Data"];
         let chartSurplus = [0];
         let latestExpenses = 0;
         let latestSurplus = 0;
 
         if (history && history.length > 0) {
-            // The API sends newest first. We reverse it so the chart goes left-to-right (oldest to newest)
+            // The API sends newest first. We reverse it so the chart goes oldest to newest
             history.reverse(); 
             
             // Extract dates and calculate surplus for the line chart
-            chartLabels = history.map(plan => plan.date.split(" - ")[0]); // Just get the 'Jan 01' part
+            chartLabels = history.map(plan => plan.date.split(" - ")[0]); 
             chartSurplus = history.map(plan => plan.salary - plan.expenses);
 
-            // Get the absolute newest plan for the doughnut chart
+            // Get the absolute newest plan
             const latestPlan = history[history.length - 1];
             latestExpenses = latestPlan.expenses;
             latestSurplus = latestPlan.salary - latestPlan.expenses;
+
+            // ==========================================
+            // NEW: DYNAMIC SAVINGS CIRCLE PROGRESS
+            // ==========================================
+            let savingsRate = 0;
+            if (latestPlan.salary > 0) {
+                // Calculate percentage: (Surplus / Salary) * 100
+                savingsRate = Math.round((latestSurplus / latestPlan.salary) * 100);
+            }
+            
+            // Ensure the percentage doesn't go below 0% if they are overspending
+            const displayRate = Math.max(0, savingsRate);
+
+            // Update the DOM text
+            const progressPercent = document.getElementById("progressPercent");
+            if (progressPercent) {
+                progressPercent.innerText = displayRate + "%";
+            }
+
+            // Update the CSS circle fill dynamically
+            const progressCircle = document.getElementById("progressCircle");
+            if (progressCircle) {
+                // Use your existing cyan color (#00f5ff) and fill it up to 'displayRate'
+                progressCircle.style.background = `conic-gradient(#00f5ff ${displayRate}%, rgba(255,255,255,.08) 0)`;
+            }
+            // ==========================================
+
         } else {
             // Fallback dummy data if they haven't generated a plan yet
             chartLabels = ["Create a plan first!"];
