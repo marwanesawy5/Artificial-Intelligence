@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Mawzoon Dashboard</title>
+
+<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="css/responsive.css" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+/* only dashboard fixes, colors remain from style.css exactly like index */
+
+canvas{
+  width:100% !important;
+  height:320px !important;
+  max-height:320px !important;
+  display:block;
+}
+
+.dashboard-main{
+  overflow:hidden;
+}
+
+.grid-4{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:24px;
+}
+
+.grid-2{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+  gap:24px;
+}
+
+.news-list{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:24px;
+}
+
+.market-card h3{
+  margin:8px 0;
+  font-size:28px;
+}
+
+.progress-wrap{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:20px 0 10px;
+}
+
+.circle-progress{
+  width:190px;
+  height:190px;
+  border-radius:50%;
+  background:conic-gradient(#00f5ff 68%, rgba(255,255,255,.08) 0);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.circle-inner{
+  width:135px;
+  height:135px;
+  border-radius:50%;
+  background:#0b1020;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
+
+.circle-inner strong{
+  font-size:28px;
+}
+
+.section.spacer{
+  margin-top:30px;
+}
+</style>
+</head>
+
+<body>
+
+<header class="navbar">
+  <div class="logo">Mawzoon</div>
+
+  <nav class="nav-menu" id="navMenu">
+    <a href="chatbot.html">AI Chat</a>
+    <a href="inputs.html">Planner</a>
+    <a href="markets.html">Markets</a>
+    <a href="nearby.html">Nearby</a>
+    <a href="/logout" class="btn btn-outline" style="margin-left: 15px; padding: 5px 15px;">Logout</a>
+  </nav>
+</header>
+
+<section class="page-hero">
+  <div class="fade-up">
+    <p class="badge">Dashboard</p>
+    <h1>Financial Dashboard</h1>
+    <p class="hero-text">
+      Welcome back. View your wealth, savings, debt and AI insights.
+    </p>
+  </div>
+</section>
+
+<main class="container dashboard-main">
+
+<section class="section">
+<div class="grid-4">
+
+<div class="card market-card fade-up">
+<p>Monthly Savings</p>
+<h3 id="user-savings">$0</h3>
+<strong class="positive">+8.2%</strong>
+</div>
+
+<div class="card market-card fade-up">
+<p>Investments</p>
+<h3 id="user-investments">$0</h3>
+<strong class="positive">+15.6%</strong>
+</div>
+
+<div class="card market-card fade-up">
+<p>Emergency Fund</p>
+<h3 id="user-emergency">$0</h3>
+<strong class="positive">+6.4%</strong>
+</div>
+
+<div class="card market-card fade-up">
+<p>Expenses</p>
+<h3 id="user-expenses">$0</h3>
+<strong>-2.1%</strong>
+</div>
+
+</div>
+</section>
+
+<section class="section spacer">
+<div class="card fade-up">
+  <div class="section-title left">
+    <p class="badge">Growth</p>
+    <h2>Wealth Growth</h2>
+  </div>
+  <canvas id="wealthChart"></canvas>
+</div>
+</section>
+
+<section class="section spacer">
+<div class="grid-2">
+
+<div class="card fade-up">
+  <div class="section-title left">
+    <p class="badge">Goal</p>
+    <h2>Savings Progress</h2>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="circle-progress">
+      <div class="circle-inner">
+        <strong>68%</strong>
+        <span>Complete</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card fade-up">
+  <div class="section-title left">
+    <p class="badge">Assets</p>
+    <h2>Portfolio Mix</h2>
+  </div>
+
+  <canvas id="portfolioChart"></canvas>
+</div>
+
+</div>
+</section>
+
+<section class="section spacer">
+<div class="section-title fade-up">
+  <p class="badge">AI Insights</p>
+  <h2>Recommendations</h2>
+</div>
+
+<div class="news-list">
+
+<article class="card fade-up">
+<h3>Increase ETF allocation by 10%</h3>
+<p>Better long-term diversification.</p>
+</article>
+
+<article class="card fade-up">
+<h3>Pay high-interest debt first</h3>
+<p>Improves monthly cash flow.</p>
+</article>
+
+<article class="card fade-up">
+<h3>Build 6-month reserve fund</h3>
+<p>Protect against uncertainty.</p>
+</article>
+
+<article class="card fade-up">
+<h3>Add gold hedge exposure</h3>
+<p>Useful during volatility.</p>
+</article>
+
+</div>
+</section>
+
+<section class="cta-section fade-up">
+<div class="glass cta-box">
+  <h2>Need A Personalized Strategy?</h2>
+  <p>Use Mawzoon Advisor for custom planning and market guidance.</p>
+  <a href="chatbot.html" class="btn">Ask AI Now</a>
+</div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div>
+    <h3>Mawzoon Advisor</h3>
+    <p>Modern AI Financial Platform</p>
+  </div>
+
+  <div>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="markets.html">Markets</a>
+    <a href="chatbot.html">AI Chat</a>
+  </div>
+
+  <p class="copyright">
+    © 2026 Mawzoon Advisor. All rights reserved.
+  </p>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/charts.js"></script>
+
+</body>
+</html>

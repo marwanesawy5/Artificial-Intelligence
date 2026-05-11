@@ -1,0 +1,2 @@
+from auth.models import db
+print("Import works!")

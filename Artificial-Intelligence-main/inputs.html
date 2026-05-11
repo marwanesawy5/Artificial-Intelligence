@@ -1,0 +1,320 @@
+<!-- inputs.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mawzoon Planner</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/forms.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- =========================
+       Navbar
+  ========================== -->
+  <header class="navbar">
+    <div class="logo">Mawzoon</div>
+
+    <nav class="nav-menu">
+      <a href="chatbot.html">AI Chat</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="markets.html">Markets</a>
+      <a href="nearby.html">Nearby</a>
+  
+    </nav>
+  </header>
+
+  <!-- =========================
+       Planner Hero
+  ========================== -->
+  <section class="page-hero" style="position: relative;">
+    <div class="fade-up">
+      <p class="badge">Financial Planning</p>
+      <h1>Build Your Personalized Wealth Plan</h1>
+      <p class="hero-text">
+        Enter your income, expenses, savings, and goals to receive smart AI insights.
+      </p>
+      <button onclick="loadPlannerHistory()" class="history-btn">
+        Planner History
+      </button>
+    </div>
+  </section>
+
+<div id="historyModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:999; justify-content:center; align-items:center;">
+    <div style="background:#121826; padding:30px; border-radius:16px; width:90%; max-width:600px; max-height:80vh; overflow-y:auto; border: 1px solid rgba(255,255,255,0.1);">
+        <div style="display:flex; justify-content:space-between; margin-bottom:20px;">
+            <h2 style="color:white; margin:0;">Your Plan History</h2>
+            <button onclick="document.getElementById('historyModal').style.display='none'" style="background:none; border:none; color:white; font-size:1.5rem; cursor:pointer;">&times;</button>
+        </div>
+        <div id="historyList" style="display:flex; flex-direction:column; gap:10px;">
+            </div>
+    </div>
+</div>
+
+<script>
+    // NEW FUNCTION TO FETCH HISTORY
+    async function loadPlannerHistory() {
+        document.getElementById('historyModal').style.display = 'flex';
+        const historyList = document.getElementById('historyList');
+        historyList.innerHTML = "<p style='color:white;'>Loading...</p>";
+        
+        try {
+            const response = await fetch('/api/planner_history');
+            const data = await response.json();
+            
+            if(data.length === 0) {
+                historyList.innerHTML = "<p style='color:gray;'>No previous plans found.</p>";
+                return;
+            }
+            
+            historyList.innerHTML = "";
+            data.forEach(plan => {
+                historyList.innerHTML += `
+                    <div style="background:rgba(255,255,255,0.05); padding:15px; border-radius:8px; border: 1px solid rgba(255,255,255,0.1);">
+                        <p style="color:gray; font-size:0.8rem; margin:0 0 5px 0;">${plan.date}</p>
+                        <div style="display:flex; justify-content:space-between; color:white;">
+                            <span>Income: $${plan.salary} | Exp: $${plan.expenses}</span>
+                            <strong style="color:${plan.score >= 60 ? '#57ff8f' : '#ff6a6a'}">Score: ${plan.score} (${plan.status})</strong>
+                        </div>
+                    </div>
+                `;
+            });
+        } catch(e) {
+            historyList.innerHTML = "<p style='color:red;'>Failed to load history.</p>";
+        }
+    }
+</script>
+
+  <!-- =========================
+       Form Section
+  ========================== -->
+  <main class="container">
+
+    <div class="planner-layout">
+
+      <!-- Form -->
+      <section class="card planner-form fade-up">
+        <h2>Your Financial Inputs</h2>
+
+        <form id="financeForm" class="form-grid">
+
+          <div class="form-group">
+            <label for="salary">Monthly Salary</label>
+            <input type="number" id="salary" placeholder="e.g. 2500" required>
+          </div>
+
+          <div class="form-group">
+            <label for="expenses">Monthly Expenses</label>
+            <input type="number" id="expenses" placeholder="e.g. 1400" required>
+          </div>
+
+          <div class="form-group">
+            <label for="savings">Current Savings</label>
+            <input type="number" id="savings" placeholder="e.g. 8000" required>
+          </div>
+
+          <div class="form-group">
+            <label for="debt">Debt Amount</label>
+            <input type="number" id="debt" placeholder="e.g. 3500">
+          </div>
+
+          <div class="form-group">
+            <label for="risk">Risk Tolerance</label>
+            <select id="risk">
+              <option value="Low">Low</option>
+              <option value="Medium" selected>Medium</option>
+              <option value="High">High</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="goal">Financial Goal</label>
+            <select id="goal">
+              <option value="Emergency Fund">Emergency Fund</option>
+              <option value="Buy House">Buy House</option>
+              <option value="Retirement">Retirement</option>
+              <option value="Invest Growth">Invest Growth</option>
+              <option value="Debt Free">Debt Free</option>
+            </select>
+          </div>
+             <button type="button" id="generateBtn" class="btn full-btn">
+              Generate Plan
+            </button>
+        </form>
+      </section>
+
+      <!-- Results -->
+      <section class="card planner-results fade-up">
+        <h2>AI Results</h2>
+
+        <div id="resultsBox">
+
+          <div class="result-item">
+            <span>Monthly Surplus</span>
+            <strong id="surplus">$0</strong>
+          </div>
+
+          <div class="result-item">
+            <span>Savings Rate</span>
+            <strong id="savings_rate">0%</strong>
+          </div>
+
+          <div class="result-item">
+            <span>AI Score</span>
+            <strong id="score">0</strong>
+          </div>
+
+          <div class="result-tip" id="adviceBox">
+            Fill the form and click Generate Plan.
+          </div>
+        </div>
+      </section>
+    </div>
+    <!-- Recommendation Cards -->
+    <section class="section">
+      <div class="section-title fade-up">
+        <p class="badge">Smart Guidance</p>
+        <h2>Suggested Actions</h2>
+      </div>
+
+      <div class="grid-3">
+
+        <div class="card">
+          <h3>Save First</h3>
+          <p>Automate transfers immediately after salary arrives.</p>
+        </div>
+
+        <div class="card">
+          <h3>Invest Monthly</h3>
+          <p>Use dollar-cost averaging for long-term growth.</p>
+        </div>
+
+        <div class="card">
+          <h3>Kill Debt</h3>
+          <p>Pay highest-interest balances aggressively first.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- JS -->
+  <script src="js/main.js"></script>
+<script>
+    // 1. Clear errors when the user starts typing
+    const allInputs = document.querySelectorAll('.form-group input, .form-group select');
+    allInputs.forEach(input => {
+        input.addEventListener('input', function() {
+            // Remove red border
+            this.classList.remove('input-error');
+            // Remove the warning text if it exists
+            const warning = this.parentElement.querySelector('.error-text');
+            if (warning) warning.remove();
+        });
+    });
+
+    // 2. Main Logic for the Generate Button
+    document.getElementById('generateBtn').addEventListener('click', async function(e) {
+    e.preventDefault();
+
+    // --- 1. RESET EVERYTHING AT THE START OF THE CLICK ---
+    let isValid = true;
+    const allInputs = document.querySelectorAll('.form-group input, .form-group select');
+    
+    allInputs.forEach(input => {
+        input.classList.remove('input-error'); // Remove red borders
+        const warning = input.parentElement.querySelector('.error-text');
+        if (warning) warning.remove(); // Remove red text
+    });
+
+    // --- 2. COLLECT CURRENT VALUES ---
+    const inputs = {
+        salary: document.getElementById('salary'),
+        expenses: document.getElementById('expenses'),
+        savings: document.getElementById('savings'),
+        debt: document.getElementById('debt'),
+        risk: document.getElementById('risk'),
+        goal: document.getElementById('goal')
+    };
+
+    // Helper function for errors
+    const applyError = (inputElement, message) => {
+        isValid = false;
+        inputElement.classList.add('input-error');
+        let warning = document.createElement('span');
+        warning.className = 'error-text';
+        warning.style.color = '#ff6a6a';
+        warning.style.fontSize = '0.85rem';
+        warning.style.marginTop = '5px';
+        warning.style.display = 'block';
+        warning.innerText = message;
+        inputElement.parentElement.appendChild(warning);
+    };
+
+    // --- 3. RUN VALIDATION ---
+    for (const key in inputs) {
+        if (!inputs[key].value || inputs[key].value.trim() === "") {
+            applyError(inputs[key], 'This field is required.');
+        }
+    }
+
+    if (isValid) {
+        const numSalary = parseFloat(inputs.salary.value);
+        const numExpenses = parseFloat(inputs.expenses.value);
+        if (numExpenses >= numSalary) {
+            applyError(inputs.expenses, 'Expenses must be less than salary.');
+        }
+    }
+
+    // STOP if invalid
+    if (!isValid) return;
+
+    // --- 4. SEND TO PYTHON ---
+    try {
+        // Change the text to show it's working
+        document.getElementById('generateBtn').innerText = "Calculating...";
+
+        const response = await fetch('/plan', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                salary: parseFloat(inputs.salary.value),
+                expenses: parseFloat(inputs.expenses.value),
+                savings: parseFloat(inputs.savings.value),
+                debt: parseFloat(inputs.debt.value),
+                risk: inputs.risk.value,
+                goal: inputs.goal.value
+            })
+        });
+
+        const data = await response.json();
+
+        // --- 5. UPDATE THE UI WITH NEW DATA ---
+        document.getElementById('surplus').innerText = '$' + data.surplus;
+        document.getElementById('savings_rate').innerText = data.savings_rate + '%';
+        document.getElementById('score').innerText = data.score + '/100';
+        
+        const adviceBox = document.getElementById('adviceBox');
+        adviceBox.innerHTML = ''; 
+        data.advice.forEach(tip => {
+            adviceBox.innerHTML += `<li>${tip}</li>`;
+        });
+
+    } catch (error) {
+        alert("Server connection failed!");
+    } finally {
+        // Reset button text
+        document.getElementById('generateBtn').innerText = "Generate Plan";
+    }
+});
+</script>
+</body>
+</html>

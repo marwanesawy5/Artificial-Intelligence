@@ -1,0 +1,275 @@
+<!-- markets.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mawzoon Markets</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <!-- =========================
+       Navbar
+  ========================== -->
+  <header class="navbar">
+    <div class="logo">Mawzoon</div>
+
+    <nav class="nav-menu">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="chatbot.html">AI Chat</a>
+      <a href="inputs.html">Planner</a>
+      <a href="nearby.html">Nearby</a>
+      
+    </nav>
+  </header>
+
+  <!-- =========================
+       Hero
+  ========================== -->
+  <section class="page-hero">
+    <div class="fade-up">
+      <p class="badge">Markets & Assets</p>
+      <h1>Track Financial Markets Live</h1>
+      <p class="hero-text">
+        Monitor gold, stocks, crypto, and breaking financial headlines.
+      </p>
+    </div>
+  </section>
+
+  <!-- =========================
+       Main Content
+  ========================== -->
+  <main class="container">
+
+    <!-- Gold Chart -->
+    <section class="card fade-up">
+      <div class="section-title left">
+        <h2>Gold Price Trend</h2>
+        <p>Last 7 Days</p>
+      </div>
+
+      <canvas id="goldChart"></canvas>
+    </section>
+
+    <!-- Watchlist -->
+    <section class="section">
+      <div class="section-title fade-up">
+        <h2>Stocks Watchlist</h2>
+      </div>
+
+      <div class="grid-3">
+
+        <div class="card market-card">
+          <h3>Apple</h3>
+          <p>AAPL</p>
+         <strong id="aaplPrice">--</strong>
+        </div>
+
+        <div class="card market-card">
+          <h3>Microsoft</h3>
+          <p>MSFT</p>
+          <strong id="msftPrice">--</strong>
+        </div>
+
+        <div class="card market-card">
+          <h3>Tesla</h3>
+          <p>TSLA</p>
+          <strong id="tslaPrice">--</strong>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Crypto -->
+    <section class="section">
+      <div class="section-title fade-up">
+        <h2>Crypto Market</h2>
+      </div>
+
+      <div class="grid-3">
+
+        <div class="card market-card glow-card">
+          <h3>Bitcoin</h3>
+<p>BTC</p>
+<strong id="btcPrice">$--</strong>
+        </div>
+
+        <div class="card market-card">
+          <h3>Ethereum</h3>
+          <p>ETH</p>
+          <strong id="ethPrice">$--</strong>
+        </div>
+
+        <div class="card market-card">
+          <h3>Solana</h3>
+          <p>SOL</p>
+        <strong id="solPrice">$--</strong>
+        </div>
+
+      </div>
+    </section>
+
+  <!-- Finance News  -->
+
+<section class="section">
+  <div class="section-title fade-up">
+    <h2>Finance News</h2>
+  </div>
+
+  <div class="news-list">
+
+    <article class="card news-card">
+      <h3>Gold rises as investors seek safety</h3>
+      <p>
+        Precious metals gained after market uncertainty increased.
+      </p>
+    </article>
+
+    <article class="card news-card">
+      <h3>Tech stocks continue rally</h3>
+      <p>
+        AI-focused companies pushed indexes higher today.
+      </p>
+    </article>
+
+    <article class="card news-card">
+      <h3>Bitcoin volatility returns</h3>
+      <p>
+        BTC swings sharply as traders react to macro data.
+      </p>
+    </article>
+
+  </div>
+</section>
+
+    <!-- CTA -->
+    <section class="cta-section fade-up">
+      <div class="glass cta-box">
+        <h2>Need Help Investing?</h2>
+        <p>
+          Ask Mawzoon Advisor for strategies based on your risk profile.
+        </p>
+        <a href="chatbot.html" class="btn">Ask AI</a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- JS -->
+  <script src="js/main.js"></script>
+  <!-- <script src="js/charts.js"></script> -->
+<script>
+async function loadMarkets() {
+  try {
+    const res = await fetch("/api/markets");
+    const data = await res.json();
+
+    // ---- Crypto
+    document.getElementById("btcPrice").innerText =
+      "$" + data.crypto.bitcoin.usd;
+
+    document.getElementById("ethPrice").innerText =
+      "$" + data.crypto.ethereum.usd;
+
+    document.getElementById("solPrice").innerText =
+      "$" + data.crypto.solana.usd;
+
+    // ---- Stocks
+    document.getElementById("aaplPrice").innerText =
+      "$" + data.stocks.AAPL;
+
+    document.getElementById("msftPrice").innerText =
+      "$" + data.stocks.MSFT;
+
+    document.getElementById("tslaPrice").innerText =
+      "$" + data.stocks.TSLA;
+
+  } catch (err) {
+    console.error("Market error:", err);
+  }
+}
+
+// Load once
+loadMarkets();
+
+// Refresh every 10 seconds
+setInterval(loadMarkets, 10000);
+</script>
+
+
+<script>
+async function loadGoldChart() {
+  try {
+    const res = await fetch("/api/markets");
+    const data = await res.json();
+
+    // Safety check
+    if (!data.gold || data.gold.length === 0) {
+      console.error("Gold data missing:", data);
+      return;
+    }
+
+    const ctx = document.getElementById("goldChart").getContext("2d");
+
+    const labels = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+
+    const minGold = Math.min(...data.gold);
+    const maxGold = Math.max(...data.gold);
+
+    new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: labels,
+        datasets: [{
+          label: "Gold Price (USD)",
+          data: data.gold,
+          backgroundColor: "#f4d03f",
+          borderRadius: 12,
+          borderSkipped: false
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            labels: { color: "#fff" }
+          }
+        },
+        scales: {
+          x: {
+            ticks: { color: "#aaa" }
+          },
+          y: {
+            min: minGold - 10,
+            max: maxGold + 10,
+            ticks: {
+              color: "#aaa",
+              callback: value => "$" + value
+            }
+          }
+        }
+      }
+    });
+
+  } catch (err) {
+    console.error("Gold chart error:", err);
+  }
+}
+
+// Load once
+loadGoldChart();
+</script>
+</body>
+</html>

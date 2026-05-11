@@ -1,0 +1,267 @@
+/* ==========================================
+   css/responsive.css
+   Global Responsive Rules
+========================================== */
+
+/* ========================
+   Large Screens
+======================== */
+@media (max-width: 1400px){
+
+  .hero h1{
+    font-size:3.5rem;
+  }
+
+  .container{
+    width:min(1200px,94%);
+  }
+}
+
+/* ========================
+   Laptop / Small Desktop
+======================== */
+@media (max-width: 1200px){
+
+  .hero{
+    grid-template-columns:1fr;
+    gap:40px;
+    text-align:center;
+    padding-top:50px;
+  }
+
+  .hero-text{
+    margin-left:auto;
+    margin-right:auto;
+  }
+
+  .hero-buttons{
+    justify-content:center;
+  }
+
+  .stats-grid{
+    grid-template-columns:repeat(3,1fr);
+  }
+
+  .hero-widget{
+    max-width:700px;
+    margin:auto;
+  }
+
+  .chat-wrapper{
+    grid-template-columns:320px 1fr;
+  }
+
+  .grid-3{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+/* ========================
+   Tablet
+======================== */
+@media (max-width: 992px){
+
+  .navbar{
+    padding:18px 4%;
+  }
+
+  .nav-menu{
+    gap:14px;
+  }
+
+  .hero h1{
+    font-size:3rem;
+  }
+
+  .page-hero h1{
+    font-size:2.4rem;
+  }
+
+  .stats-grid{
+    grid-template-columns:1fr;
+  }
+
+  .chat-wrapper{
+    grid-template-columns:1fr;
+  }
+
+  .chat-sidebar{
+    order:-1;
+  }
+
+  .grid-3{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .section{
+    padding:60px 0;
+  }
+
+  .cta-box{
+    padding:34px;
+  }
+}
+
+/* ========================
+   Mobile Navigation
+======================== */
+@media (max-width: 768px){
+
+  .menu-toggle{
+    display:block;
+  }
+
+  .nav-menu{
+    position:absolute;
+    top:78px;
+    left:0;
+    width:100%;
+    background:rgba(27,28,37,0.98);
+    backdrop-filter:blur(16px);
+    flex-direction:column;
+    align-items:flex-start;
+    padding:22px;
+    gap:18px;
+    border-top:1px solid rgba(255,255,255,0.06);
+
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(-12px);
+    transition:0.3s ease;
+  }
+
+  .nav-menu.show{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0);
+  }
+
+  .nav-actions .btn{
+    display:none;
+  }
+
+  .hero{
+    min-height:auto;
+    padding:30px 0 50px;
+  }
+
+  .hero h1{
+    font-size:2.45rem;
+  }
+
+  .hero-buttons{
+    flex-direction:column;
+    align-items:center;
+  }
+
+  .hero-buttons .btn{
+    width:100%;
+    max-width:320px;
+  }
+
+  .page-hero{
+    padding:55px 5% 20px;
+  }
+
+  .page-hero h1{
+    font-size:2rem;
+  }
+
+  .section-title h2{
+    font-size:1.6rem;
+  }
+
+  .grid-3{
+    grid-template-columns:1fr;
+  }
+
+  .chat-box{
+    min-height:58vh;
+    max-height:58vh;
+  }
+
+  .chat-input-wrap{
+    flex-direction:column;
+  }
+
+  .chat-input-wrap .btn{
+    width:100%;
+  }
+
+  .bubble{
+    max-width:86%;
+  }
+
+  .footer{
+    padding:30px 5%;
+  }
+
+  .footer div{
+    flex-direction:column;
+    gap:10px;
+  }
+}
+
+/* ========================
+   Small Phones
+======================== */
+@media (max-width: 520px){
+
+  .hero h1{
+    font-size:2rem;
+  }
+
+  .page-hero h1{
+    font-size:1.7rem;
+  }
+
+  .hero-text,
+  p{
+    font-size:0.95rem;
+  }
+
+  .card,
+  .glass{
+    border-radius:16px;
+  }
+
+  .btn{
+    padding:12px 18px;
+    font-size:0.95rem;
+  }
+
+  .section{
+    padding:48px 0;
+  }
+
+  .cta-box{
+    padding:26px 20px;
+  }
+
+  .logo{
+    font-size:1.25rem;
+  }
+}
+
+/* ========================
+   Ultra Small Devices
+======================== */
+@media (max-width: 360px){
+
+  .hero h1{
+    font-size:1.75rem;
+  }
+
+  .page-hero h1{
+    font-size:1.45rem;
+  }
+
+  .badge{
+    font-size:0.75rem;
+    padding:7px 10px;
+  }
+
+  .btn{
+    width:100%;
+  }
+}

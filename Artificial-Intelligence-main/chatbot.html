@@ -1,0 +1,102 @@
+<!-- chatbot.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mawzoon Chatbot</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- =========================
+       Navbar
+  ========================== -->
+  <header class="navbar">
+    <div class="logo">Mawzoon
+    </div>
+
+    <nav class="nav-menu">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="inputs.html">Planner</a>
+      <a href="markets.html">Markets</a>
+      <a href="nearby.html">Nearby</a>
+    </nav>
+
+
+  </header>
+
+  <!-- =========================
+       Chat Section
+  ========================== -->
+  <main class="chat-wrapper">
+
+    <!-- Left Side -->
+    <section class="chat-sidebar glass fade-up">
+      <p class="badge">AI Advisor</p>
+      <h1>Ask Anything About Money</h1>
+
+      <p class="hero-text">
+        Get instant answers about saving, investing, debt, budgeting,
+        stocks, gold, crypto, and financial planning.
+      </p>
+
+      <div class="suggested-box">
+        <button class="chip ask-btn">How can I save more money?</button>
+        <button class="chip ask-btn">Best investment for beginners?</button>
+        <button class="chip ask-btn">Should I pay debt first?</button>
+        <button class="chip ask-btn">Gold or stocks in 2026?</button>
+        <button class="chip ask-btn">How much emergency fund?</button>
+      </div>
+    </section>
+
+    <!-- Chat Area -->
+    <section class="chat-area fade-up">
+
+      <div class="chat-box card" id="chatBox">
+
+        <div class="message bot-msg">
+          <div class="avatar">🤖</div>
+          <div class="bubble">
+            Hello! I'm Mawzoon Advisor.<br>
+            Ask me anything about finance.
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Input -->
+      <div class="chat-input-wrap glass">
+
+        <input
+          type="text"
+          id="userInput"
+          placeholder="Type your question..."
+          autocomplete="off"
+        />
+          <button id="saveBtn" class="btn">
+                Save
+          </button>
+        <button id="sendBtn" class="btn">
+          Send
+        </button>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- JS -->
+  <script src="js/chatbot.js"></script>
+
+</body>
+</html>
